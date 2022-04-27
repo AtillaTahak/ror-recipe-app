@@ -24,8 +24,6 @@
         <td><%= food.measurement_unit %></td>
         <td><%= food.price %></td>
         <td>
-          <%= link_to "Show", food %>
-          <%= link_to "Edit", edit_food_path(food) %>
           <%= link_to "Delete", food, method: :delete, data: { confirm: "Are you sure?" } %>
         </td>
       </tr>
