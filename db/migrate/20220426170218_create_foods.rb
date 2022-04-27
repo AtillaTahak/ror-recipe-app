@@ -4,8 +4,7 @@ class CreateFoods < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :measurement_unit
       t.float :price
-      t.integer :user_id
-      t.references :author, foreign_key: { to_table: :users }
+      t.references :user, foreign_key: { to_table: :users }
 
       t.timestamps
     end

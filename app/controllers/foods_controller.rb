@@ -22,7 +22,8 @@ class FoodsController < ApplicationController
 
   # POST /foods or /foods.json
   def create
-    @food = Food.new(food_params)
+    @food = current_user.foods.new(food_params)
+    # @food = Food.new(food_params)
 
     respond_to do |format|
       if @food.save
@@ -66,6 +67,6 @@ class FoodsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def food_params
-      params.fetch(:food, {})
+      params.require(:food).permit(:name, :measurement_unit, :price)
     end
 end
