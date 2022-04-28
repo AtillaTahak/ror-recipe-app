@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   def index
-    redirect_to recipes_path unless current_user
+    redirect_to public_recipes_path unless current_user
 
     @recipes = current_user.recipes
   end
@@ -14,7 +14,7 @@ class RecipesController < ApplicationController
   end
 
   def create
-    redirect_to recipes_path unless current_user
+    redirect_to public_recipes_path unless current_user
 
     recipe = Recipe.new(recipe_params)
 
