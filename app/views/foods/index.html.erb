@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Foods</h1>
+
+<button><%= link_to "Add food", new_food_path %></button>
+
+<br>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Measurement unit</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.measurement_unit %></td>
+          <td>$<%= food.price %></td>
+          <td>
+            <%= button_to "Delete", food_path(food.id), method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

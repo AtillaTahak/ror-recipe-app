@@ -1,0 +1,7 @@
+<div id="<%= dom_id food %>">
+  <%= link_to food.name, food %>
+  <%= food.measurement_unit %>
+  <%= food.price %>
+  <%= link_to "Edit", edit_food_path(food) %>
+  <%= link_to "Delete", food, method: :delete, data: { confirm: "Are you sure?" } %>
+</div>
