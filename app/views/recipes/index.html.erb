@@ -1,0 +1,9 @@
+<div class="flex justify-between items-center mb-10">
+  <h2 class="font-bold text-4x1">Recipes from <%= current_user.name %></h2>
+  <%= link_to "Add new recipe", new_recipe_path %>
+</div>
+<ul class="flex flex-col gap-4">
+<% @recipes.each do |recipe| %>
+    <%= render partial: "recipe-card", locals: { recipe: recipe } %>
+<% end %>
+</ul>
