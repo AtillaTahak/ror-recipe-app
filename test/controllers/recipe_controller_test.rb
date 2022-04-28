@@ -1,7 +1,7 @@
-require "test_helper"
+require 'test_helper'
 
 class RecipeControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
+  test 'should get index' do
     get recipe_index_url
     assert_response :success
   end
