@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Inventory, type: :model do
   subject do
-    user = User.create!(name: 'example', email: 'example@example.com', password: 'password', confirmed_at: Time.now)
+    user = User.create!(name: 'example', email: 'example@example.com', password: 'password')
     Inventory.new(user:, name: 'An inventory')
   end
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'InventoryFoods', type: :request do
   context 'testing request' do
     it 'GET /inventories/:id/example/new' do
-      user = User.create!(name: 'example', email: 'example@example.com', password: 'password', confirmed_at: Time.now)
+      user = User.create!(name: 'example', email: 'example@example.com', password: 'password')
       inventory = user.inventories.create!(name: 'Inv#1')
       sign_in user
       get("/inventories/#{inventory.id}/inventory_foods/new")
@@ -12,7 +12,7 @@ RSpec.describe 'InventoryFoods', type: :request do
     end
 
     it 'POST /inventories/:id/inventory_foods and DELETE /inventory_foods/:id' do
-      user = User.create!(name: 'example', email: 'example@example.com', password: 'password', confirmed_at: Time.now)
+      user = User.create!(name: 'example', email: 'example@example.com', password: 'password')
       inventory = user.inventories.create!(name: 'Inv#1')
       food = user.foods.create!(name: 'Apple', measurement_unit: 'grams', price: 321)
       sign_in user
