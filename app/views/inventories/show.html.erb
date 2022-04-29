@@ -1,28 +1,33 @@
-<div>
-  <div>
-    <h1><%= @inventory.name %></h1>
-    
-    <div >
-      <%= button_to 'Add food', "/inventories/#{params[:id]}/inventory_foods/new", method: :get %>
-    </div>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>Food</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-        <tbody>
-            <% @inventory_foods.each do |inventory_food| %>
+<section class="inventories" >
+
+<div class="jumbotron bg-dark text-white" style="width:90%; margin:10px auto">
+  <div class="container">
+    <h1 class="display-4"><%= @inventory.name %></h1>
+    <p class="lead">You can display a list of food as in the wireframe.
+   You can lead to the form that allows users to add new food..</p>
+  </div>
+</div>
+
+<div class="text-center">
+      <%= button_to 'Add food', "/inventories/#{params[:id]}/inventory_foods/new", method: :get, class:"btn btn-primary btn-lg ms-auto" %>
+</div>
+<table class="table table-dark" style="margin: 10px auto;width: 90%;">
+<thead>
+   <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Actions</th>
+      </tr>
+  </thead>
+  <tbody>
+        <% @inventory_foods.each do |inventory_food| %>
             <tr>
-              <td><%= inventory_food.food.name %></td>
+              <td scope="row"><%= inventory_food.food.name %></td>
               <td><%= "#{inventory_food.quantity} #{inventory_food.food.measurement_unit}" %></td>
               <td><%= button_to 'Remove', '/inventory_foods/' + inventory_food.id.to_s, method: :delete %></td>
             </tr>
           <% end %>
-        </tbody>
-    </table>
-   </div>
-</div>
+  </tbody>
+</table>
+
+</section>
