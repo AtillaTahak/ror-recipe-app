@@ -1,7 +1,14 @@
 <h1>Shopping List for <%= current_user.name %></h1>
 <div>
-  <p>Amount of food items to buy: <%= current_user.foods.uniq.length %></p>
-  <p>Total value of food needed: $<%= @recipe_foods.map { |recipe| recipe.food.price * recipe.quantity }.sum %></p>
+<%= debug @shopping_list %>
+
+  <p>Amount of food items to buy: <%= @shopping_list.length %></p>
+  <p>Total value of food needed: $<%= @shopping_list.inject(0) { |sum,item| sum + item[2] } %>/p>
+</div>
+<div>
+ <p>Recipe:<a href="<%= "/recipes/#{@recipe.id}" %>" ><%= @recipe.name %></a></p>
+  <p>Inventory: <a href="<%= "/inventories/#{@inventory.id}" %>"><%= @inventory.name %></a></p>
+
 </div>
 
 <div>
@@ -14,11 +21,11 @@
       </tr>
     </thead>
     <tbody>
-      <% @recipe_foods.each do |recipe| %>
-        <tr>
-          <td><%= recipe.food.name %></td>
-          <td><%= recipe.quantity %></td>
-          <td>$<%= recipe.food.price * (recipe.quantity || 0) %></td>
-        </tr>
-      <% end %>
+  <% @shopping_list.each do |shopping_item| %>
+            <tr>
+              <td><%= shopping_item[0] %></td>
+              <td><%= shopping_item[1] %></td>
+              <td><%= "$#{shopping_item[2]}" %></td>
+            </tr>
+          <% end %>
 </div>

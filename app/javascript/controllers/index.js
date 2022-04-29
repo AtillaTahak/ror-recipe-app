@@ -6,3 +6,4 @@ import { application } from "./application"
 
 import TurboController from "./turbo_controller.js"
 application.register("turbo", TurboController)
+

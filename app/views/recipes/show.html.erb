@@ -1,3 +1,4 @@
+
 <h1 class="font-bold text-4xl mb-10 text-center"><%= @recipe.name %></h1>
 <div class="grid grid-cols-2 gap-y-4 mb-10 justify-items-start">
   <h4 class="text-3xl">Preparation time: <span><%= @recipe.preparation_time %> minutes</span></h4>
@@ -9,7 +10,7 @@
   </div>
   <h4 class="text-3xl mb-10">Cooking time: <span><%= @recipe.cooking_time %> minutes</span></h4>
   <% if can? :manage, @recipe %>
-    <%= link_to "Generate shopping list", general_shopping_list_index_path, class: 'border border-black p-2 rounded-lg cursor-pointer hover:opacity-60' %>
+    <%= link_to "Generate shopping list", '#', class: 'border border-black p-2 rounded-lg cursor-pointer hover:opacity-60', onclick: 'openModal()' %>
     <%= link_to "Add ingredient", new_recipe_recipe_food_path(@recipe.id), class: 'border border-black p-2 rounded-lg cursor-pointer justify-self-end hover:opacity-60' %>
   <% end %>
 </div>
@@ -18,3 +19,46 @@
 <% end %>
 <p><%= @recipe.description %></p>
 <%= link_to 'Back to recipe', recipes_path %>
+
+<div id="myModal" class="modal" style="display:none;">
+  <div>
+    <span >&times;</span>
+    <h2 >Generating Shopping List</h2>
+    <p >Choose an inventory to use</p>
+    <%=form_with url: general_shopping_list_index_path, method: :get do |f| %>
+      <div >
+        <div>
+          <%= f.select :inventory_id, @inventories.collect { |inventory| [inventory.name, inventory.id] }, :prompt => 'Select an Inventory', class: 'focus:outline-none', required: true %>
+        </div>
+        <%= f.hidden_field :recipe_id, value: @recipe.id, required: true %>
+      </div>
+      <div>
+        <%= f.submit "Generate" %>
+      </div> 
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+var modal = document.getElementById("myModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+let openModal = () => {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
