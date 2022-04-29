@@ -3,7 +3,7 @@ class InventoriesController < ApplicationController
 
   # GET /inventories or /inventories.json
   def index
-    @inventories = Inventory.all
+    @inventories = current_user.inventories
   end
 
   # GET /inventories/1 or /inventories/1.json
@@ -19,13 +19,16 @@ class InventoriesController < ApplicationController
 
   # POST /inventories or /inventories.json
   def create
-    @inventory = Inventory.new(inventory_params)
+    @inventory = Inventory.new(user: current_user, name: params[:inventory][:name])
 
     respond_to do |format|
       if @inventory.save
+        flash[:notice] = 'Inventory was successfully created.'
         format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully created.' }
         format.json { render :show, status: :created, location: @inventory }
       else
+        flash[:notice] = 'Inventory not created .'
+
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @inventory.errors, status: :unprocessable_entity }
       end

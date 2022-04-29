@@ -4,9 +4,11 @@
 
 <div id="inventories">
   <% @inventories.each do |inventory| %>
-    <%= render inventory %>
+    <li>
+      <%= link_to inventory.name, inventory %>
+    </li>
     <p>
-      <%= link_to "Show this inventory", inventory %>
+      <%= button_to "Remove", "/inventories/" + inventory.id.to_s, method: :delete %>
     </p>
   <% end %>
 </div>
