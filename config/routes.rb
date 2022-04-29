@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :inventories
   devise_for :users
   root "foods#index"
   resources :foods, only: %i[index show new create edit update destroy]

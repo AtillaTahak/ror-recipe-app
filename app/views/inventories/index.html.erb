@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Inventories</h1>
+
+<div id="inventories">
+  <% @inventories.each do |inventory| %>
+    <li>
+      <%= link_to inventory.name, inventory %>
+    </li>
+    <p>
+      <%= button_to "Remove", "/inventories/" + inventory.id.to_s, method: :delete %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New inventory", new_inventory_path %>
