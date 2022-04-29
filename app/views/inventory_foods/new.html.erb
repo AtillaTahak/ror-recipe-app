@@ -1,0 +1,16 @@
+<div>
+  <div>
+    <%= form_with model: @new_inventory_food, url: "/inventories/#{params[:id]}/inventory_foods" do |form| %>
+      <%= form.hidden_field :inventory_id, value: params[:id] %>
+      <div>
+        <div>
+          <%= form.number_field :quantity, placeholder: 'Quantity', step: :any %>
+        </div>
+        <div>
+          <%= form.collection_select :food_id, Food.order(:name), :id, :name, prompt: true %>
+        </div>
+      </div>
+      <%= form.submit %>
+    <% end %>
+  </div>
+</div>

@@ -1,72 +1,48 @@
-class InventoriesController < ApplicationController
-  before_action :set_inventory, only: %i[show edit update destroy]
+# rubocop:disable Lint/RescueException
 
-  # GET /inventories or /inventories.json
+class InventoriesController < ApplicationController
   def index
     @inventories = current_user.inventories
   end
 
-  # GET /inventories/1 or /inventories/1.json
-  def show; end
-
-  # GET /inventories/new
-  def new
-    @inventory = Inventory.new
-  end
-
-  # GET /inventories/1/edit
-  def edit; end
-
-  # POST /inventories or /inventories.json
-  def create
-    @inventory = Inventory.new(user: current_user, name: params[:inventory][:name])
-
-    respond_to do |format|
-      if @inventory.save
-        flash[:notice] = 'Inventory was successfully created.'
-        format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully created.' }
-        format.json { render :show, status: :created, location: @inventory }
-      else
-        flash[:notice] = 'Inventory not created .'
-
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @inventory.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /inventories/1 or /inventories/1.json
-  def update
-    respond_to do |format|
-      if @inventory.update(inventory_params)
-        format.html { redirect_to inventory_url(@inventory), notice: 'Inventory was successfully updated.' }
-        format.json { render :show, status: :ok, location: @inventory }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @inventory.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /inventories/1 or /inventories/1.json
-  def destroy
-    @inventory.destroy
-
-    respond_to do |format|
-      format.html { redirect_to inventories_url, notice: 'Inventory was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_inventory
+  def show
     @inventory = Inventory.find(params[:id])
+    @inventory_foods = @inventory.inventory_foods.includes(:food)
+  rescue Exception => e
+    flash[:notice] = e.message
+    redirect_to not_found_path
   end
 
-  # Only allow a list of trusted parameters through.
-  def inventory_params
-    params.require(:inventory).permit(:name, :user_id)
+  def destroy
+    current_user.inventories.find(params[:id]).destroy
+    flash[:notice] = 'Inventory was successfully removed'
+    splitted_path = request.path.split('/')
+    splitted_path.pop
+    redirect_to splitted_path.join('/')
+  rescue Exception => e
+    flash[:notice] = e.message
+    redirect_to not_found_path
+  end
+
+  def new
+    @new_inventory = Inventory.new
+  end
+
+  def create
+    inventory = Inventory.new(user: current_user, name: params[:inventory][:name])
+    respond_to do |format|
+      if inventory.save
+        flash[:notice] = 'Created an inventory succesfully'
+        format.html { redirect_to '/inventories' }
+      else
+        flash[:notice] = 'Failed to create an inventory. Try again'
+        format.html { redirect_to '/inventories/new' }
+      end
+    end
+  rescue Exception => e
+    flash[:notice] = e.message
+    redirect_to not_found_path
   end
 end
+
+# rubocop:enable Lint/RescueException

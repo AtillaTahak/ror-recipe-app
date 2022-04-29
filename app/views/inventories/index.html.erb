@@ -1,16 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Inventories</h1>
-
-<div id="inventories">
-  <% @inventories.each do |inventory| %>
-    <li>
-      <%= link_to inventory.name, inventory %>
-    </li>
-    <p>
-      <%= button_to "Remove", "/inventories/" + inventory.id.to_s, method: :delete %>
-    </p>
-  <% end %>
+<div>
+  <div>
+  <h1>Inventory list</h1>
+    <%= button_to 'Add inventory', '/inventories/new', method: :get%>
+    <ul class="mt-4">
+      <% @inventories.each do |inventory| %>
+        <li>
+          <p>
+            <a href="<%= '/inventories/' + inventory.id.to_s %>" >
+              <%= inventory.name %>
+            </a>
+          </p>
+          <%= button_to 'Remove', '/inventories/' + inventory.id.to_s, method: :delete, class: 'text-red-400 hover:text-red-300' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
-
-<%= link_to "New inventory", new_inventory_path %>

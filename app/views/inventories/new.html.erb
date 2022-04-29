@@ -1,11 +1,12 @@
-<h1>New inventory</h1>
-
-<%= form_with model:@inventory, url:'/inventories' do |form|%>
-  <%= form.text_field :name, placeholder:'Name of the inventory' %>
-  <%= form.submit %>
-<% end %>
-<br>
-
 <div>
-  <%= link_to "Back to inventories", inventories_path %>
+  <div>
+   <h1>Add new inventory</h1>
+    <%= form_with model: @new_inventory, url: '/inventories' do |form| %>
+      <br>
+      <%= form.label :name %><br />
+      <%= form.text_field :name, placeholder: 'Name of the inventory' %>
+      <br>
+      <%= form.submit %>
+    <% end %>
+   </div>
 </div>
