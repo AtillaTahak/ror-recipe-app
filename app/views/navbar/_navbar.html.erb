@@ -1,10 +1,36 @@
-<nav>
-  <ul>
-    <% if current_user %>
-      <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
-      <li><%= link_to 'inventory', inventories_path %></li>
-    <% else %>
-      <li><%= link_to 'Login', new_user_session_path %></li>
-    <% end %>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+          <%= link_to "Foods", foods_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+            </li>
+            <li class="nav-item">
+          <%= link_to "Recipes", recipes_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+          <%= link_to "Inventories", inventories_path , class: "nav-link"%>
+            </li>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+      <%= link_to "RorRecipeApp", root_path, class: "nav-link" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ms-auto">
+             <% if current_user %>
+           <li><%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "nav-link" %></li>
+        <% else %>
+          <li><%= link_to 'Login', new_user_session_path, class: "nav-link" %></li>
+        <% end %>
+        </ul>
+    </div>
+</nav>
 
-  </ul>

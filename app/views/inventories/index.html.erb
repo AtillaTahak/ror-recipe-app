@@ -1,18 +1,25 @@
-<div>
-  <div>
-  <h1>Inventory list</h1>
-    <%= button_to 'Add inventory', '/inventories/new', method: :get%>
-    <ul class="mt-4">
-      <% @inventories.each do |inventory| %>
-        <li>
-          <p>
-            <a href="<%= '/inventories/' + inventory.id.to_s %>" >
-              <%= inventory.name %>
-            </a>
-          </p>
-          <%= button_to 'Remove', '/inventories/' + inventory.id.to_s, method: :delete, class: 'text-red-400 hover:text-red-300' %>
-        </li>
-      <% end %>
-    </ul>
+<section class="foods" >
+
+<div class="jumbotron bg-dark text-white" style="width:90%; margin:10px auto; padding:10px 10px">
+  <div class="container">
+    <h1 class="display-4">Inventory list</h1>
+    <p class="lead">You can display a list of food as in the wireframe.
+   You can lead to the form that allows users to add new food..</p>
+   <%= button_to 'Add inventory', '/inventories/new', method: :get , class:"btn btn-primary"%>
+
   </div>
 </div>
+
+<% @inventories.each do |inventory| %>
+<div class="card text-center bg-dark text-white" style="width:90%; margin:10px auto">
+  <div class="card-header"> Inventory
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><a href="<%= '/inventories/' + inventory.id.to_s %>" >
+              <%= inventory.name %>
+            </a></h5>
+    <%= button_to 'Remove', '/inventories/' + inventory.id.to_s, method: :delete, class:"btn btn-primary" %>
+  </div>
+
+</div>
+ <% end %>
