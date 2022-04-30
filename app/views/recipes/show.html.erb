@@ -1,5 +1,6 @@
-<h1 class="font-bold text-4xl mb-10 text-center"><%= @recipe.name %></h1>
-<div class="grid grid-cols-2 gap-y-4 mb-10 justify-items-start">
+
+<h1 class="font-bold text-4xl mb-10 text-center bg-slate-600 text-white"><%= @recipe.name %></h1>
+<div class="grid grid-cols-2 gap-y-4 mb-10 justify-items-start bg-slate-600 text-white">
   <h4 class="text-3xl">Preparation time: <span><%= @recipe.preparation_time %> minutes</span></h4>
   <div class="row-span-2 justify-self-center text-xl">
     This recipe is <span class="font-bold"><%= @recipe.public ? 'public' : 'Private' %></span>
@@ -9,12 +10,61 @@
   </div>
   <h4 class="text-3xl mb-10">Cooking time: <span><%= @recipe.cooking_time %> minutes</span></h4>
   <% if can? :manage, @recipe %>
-    <%# <%= link_to "Generate shopping list", general_shopping_list_index_path, class: 'border border-black p-2 rounded-lg cursor-pointer hover:opacity-60' %>
+    <%= link_to "Generate shopping list", '#', class: 'border border-black p-2 rounded-lg cursor-pointer hover:opacity-60', onclick: 'openModal()' %>
     <%= link_to "Add ingredient", new_recipe_recipe_food_path(@recipe.id), class: 'border border-black p-2 rounded-lg cursor-pointer justify-self-end hover:opacity-60' %>
   <% end %>
 </div>
 <% if @recipe.foods.present? %>
   <%= render "table" %>
 <% end %>
-<p><%= @recipe.description %></p>
-<%= link_to 'Back to recipe', recipes_path %>
+<p class="bg-slate-600 text-white"><%= @recipe.description %></p>
+<%= link_to 'Back to recipe', recipes_path,class:"btn btn-primary" %>
+
+
+
+<div tabindex="-1" id="myModal" class="modal" style="display:none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Generating Shopping List</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <p >Choose an inventory to use</p>
+         <%=form_with url: general_shopping_list_index_path, method: :get do |f| %>
+      <div >
+        <div>
+          <%= f.select :inventory_id, @inventories.collect { |inventory| [inventory.name, inventory.id] }, :prompt => 'Select an Inventory', class: 'focus:outline-none', required: true %>
+        </div>
+        <%= f.hidden_field :recipe_id, value: @recipe.id, required: true %>
+      </div>
+      <div>
+        <%= f.submit "Generate",class:"btn btn-primary text-black"  %>
+      </div> 
+    <% end %>
+      </div>
+      <div class="modal-footer">
+        <span type="button" class="close btn btn-secondary text-black" data-bs-dismiss="modal">Close</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var modal = document.getElementById("myModal");
+
+var span = document.getElementsByClassName("close")[0];
+
+let openModal = () => {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
