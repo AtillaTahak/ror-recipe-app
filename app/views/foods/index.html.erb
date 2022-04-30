@@ -1,0 +1,45 @@
+<section class="foods" >
+<% if current_user %>
+<div class="jumbotron bg-dark text-white" style="width:90%; margin:10px auto">
+  <div class="container">
+    <h1 class="display-4">Food List</h1>
+    <p class="lead">You can display a list of food as in the wireframe.
+   You can lead to the form that allows users to add new food..</p>
+  </div>
+</div>
+
+<div class="text-center">
+<%= link_to "Add food", new_food_path, class:"btn btn-primary btn-lg ms-auto",style:"margin:10px 10px;" %>
+
+</div>
+<table class="table table-dark" style="margin: 10px auto;width: 90%;">
+
+  <thead>
+   <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Measurement unit</th>
+        <th scope="col">Price</th>
+        <th scope="col">Actions</th>
+      </tr>
+  </thead>
+  <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td scope="row"><%= food.name %></td>
+          <td><%= food.measurement_unit %></td>
+          <td>$<%= food.price %></td>
+          <td>
+            <%= button_to "Delete", food_path(food.id), method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+  </tbody>
+</table>
+<% else %>
+<div class="jumbotron bg-dark text-white" style="width:90%; margin:10px auto">
+  <div class="container">
+    <h1 class="display-4">Food List</h1>
+    <p class="lead">Only logged in users can see and edit foods. Feel free to have a look at the available public recipes</p>
+  </div>
+  <% end %>
+</section>

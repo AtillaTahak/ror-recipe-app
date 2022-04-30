@@ -1,0 +1,14 @@
+ <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body bg-dark text-white">
+        <h5 class="card-title">Total food items: <span class="font-bold"><%= recipe.foods.count %></h5>
+        <p class="card-text">by <span class="font-bold text-xl"><%= recipe.user.name %></p>
+                <p class="card-text">by <span class="font-bold text-xl">$<%= recipe.foods.sum :price %></p>
+
+        <%= link_to recipe_path(recipe.id), class:"btn btn-primary" do  %>
+   <%= recipe.name %>
+  <% end %>
+      </div>
+    </div>
+  </div>
+ 
