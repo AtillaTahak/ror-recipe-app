@@ -31,8 +31,8 @@ RSpec.describe 'Foods', type: :request do
       expect(response.body).to include(@food.price.to_s)
     end
 
-    it 'displays the food user_id' do
-      expect(response.body).to include(@food.user_id.to_s)
+    it 'should have user_id' do
+      expect(@food.user_id).to eq(@user.id)
     end
   end
 end
