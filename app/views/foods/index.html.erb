@@ -1,5 +1,5 @@
 <section class="foods" >
-
+<% if current_user %>
 <div class="jumbotron bg-dark text-white" style="width:90%; margin:10px auto">
   <div class="container">
     <h1 class="display-4">Food List</h1>
@@ -35,5 +35,11 @@
       <% end %>
   </tbody>
 </table>
-
+<% else %>
+<div class="jumbotron bg-dark text-white" style="width:90%; margin:10px auto">
+  <div class="container">
+    <h1 class="display-4">Food List</h1>
+    <p class="lead">Only logged in users can see and edit foods. Feel free to have a look at the available public recipes</p>
+  </div>
+  <% end %>
 </section>
