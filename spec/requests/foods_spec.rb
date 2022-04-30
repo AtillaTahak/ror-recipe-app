@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Foods", type: :request do
-  describe "GET /foods" do
+RSpec.describe 'Foods', type: :request do
+  describe 'GET /foods' do
     include Devise::Test::IntegrationHelpers
     before(:each) do
       @user = User.create(name: 'Ricky', email: 'rickymormor1@gmail.com', password: 'password')
@@ -11,29 +11,28 @@ RSpec.describe "Foods", type: :request do
       get foods_path
     end
 
-    it "returns http success" do
+    it 'returns http success' do
       expect(response).to have_http_status(:success)
     end
 
-    it "renders the index template" do
-      expect(response).to render_template("foods/index")
+    it 'renders the index template' do
+      expect(response).to render_template('foods/index')
     end
 
-    it "displays the food name" do
+    it 'displays the food name' do
       expect(response.body).to include(@food.name)
     end
 
-    it "displays the food measurement_unit" do
+    it 'displays the food measurement_unit' do
       expect(response.body).to include(@food.measurement_unit)
     end
 
-    it "displays the food price" do
+    it 'displays the food price' do
       expect(response.body).to include(@food.price.to_s)
     end
 
-    it "displays the food user_id" do
+    it 'displays the food user_id' do
       expect(response.body).to include(@food.user_id.to_s)
     end
-
   end
 end
